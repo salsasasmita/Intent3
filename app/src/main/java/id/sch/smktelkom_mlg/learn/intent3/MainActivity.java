@@ -26,7 +26,16 @@ public class MainActivity extends AppCompatActivity {
                 composeSmsMEssage("Pesan dari SMK Telkom Malang");
             }
         });
+
+        findViewById(R.id.imageViewBrowser).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openWebPage("http://www.smktelkom-mlg.sch.id/");
+            }
+        });
+
     }
+
 
     private void composeSmsMEssage(String message) {
         Intent intent = new Intent(Intent.ACTION_SEND);
@@ -39,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
     private void dialPhoneNumber(String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + phoneNumber));
+        if (intent.resolveActivity(getPackageManager()) != null)
+            startActivity(intent);
+    }
+
+    private void openWebPage(String url) {
+        Uri webpage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         if (intent.resolveActivity(getPackageManager()) != null)
             startActivity(intent);
     }
